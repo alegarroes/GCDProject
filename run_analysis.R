@@ -76,4 +76,6 @@ names(test_data)[2] <- "activity"
 # MERGE TRAIN AND TEST DATA SETS
 data_set <- rbind(train_data, test_data)
 
+# group data set by subject and activity
+data_set_grouped <- group_by(data_set, subject, activity)
 
