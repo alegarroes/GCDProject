@@ -1,13 +1,16 @@
+# load required libraries
 library(data.table)
+library(dplyr)
+library(tidyr)
 
 # folder in which dataset is stored
 data_folder <- "UCI HAR Dataset"
 
-# TRAINING DATA
-y_train_data_file <- file.path(getwd(), data_folder, "train", "y_train.txt")
-x_train_data_file <- file.path(getwd(), data_folder, "train", "X_train.txt")
-subject_train_data_file <- file.path(getwd(), data_folder, "train", "subject_train.txt")
-activities_file <- file.path(getwd(), data_folder, "activity_labels.txt")
+# define file paths that contain the files from which to read
+y_train_data_file <- file.path(data_folder, "train", "y_train.txt")
+x_train_data_file <- file.path(data_folder, "train", "X_train.txt")
+subject_train_data_file <- file.path(data_folder, "train", "subject_train.txt")
+activities_file <- file.path(data_folder, "activity_labels.txt")
 
 # contains features
 x_train <- fread(x_train_data_file)
@@ -73,9 +76,17 @@ test_data <- cbind(subject_test, y_test, x_test)
 names(test_data)[2] <- "activity"
 
 
-# MERGE TRAIN AND TEST DATA SETS
-data_set <- rbind(train_data, test_data)
+# merge train and test data sets, create tibble
+data_set <- tbl_df(rbind(train_data, test_data))
 
-# group data set by subject and activity
-data_set_grouped <- group_by(data_set, subject, activity)
+# tidy data set
+data_set_tidy <- gather(data_set, measurement, value, -subject, -activity)
 
+# group data set by subject, activity and measurement
+data_set_grouped <- group_by(data_set_tidy, subject, activity, measurement)
+
+# summarize group data and calculate mean of each group
+summarized_data <- summarize(data_set_grouped, avg = mean(value))
+
+# output to file
+write.table(summarized_data, "summarized_data.txt.", row.name = FALSE)
