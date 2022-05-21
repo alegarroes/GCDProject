@@ -1,17 +1,19 @@
 # Getting and Cleaning Data Project
 ### Final project for the Coursera course Getting and Cleaning Data
 
-The goal of this script is to extract the mean of several accelerometer measurements taken from a Samsung Galaxy S II smartphone. These measurements were taken from experiments in which 30 volunteers performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing the smartphone. The source of the data is the [Human Activity Recognition Using Smartphones Data Set](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). Two datasets were processed, a training data set and a testing data set.
+The goal is to extract the mean of several accelerometer measurements taken from a Samsung Galaxy S II smartphone. These measurements were taken from experiments in which 30 volunteers performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing the smartphone. The source of the data is the [Human Activity Recognition Using Smartphones Data Set](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). Two datasets were processed, a training data set and a testing data set.
+
+Here, the analysis performed in `run_analysis.R` is described.
 
 ## Reading data from the files
-The training and testing data was read from different files, each one for the testing and training data sets:
+The data were read from the following files, each one for the testing and training data sets:
 - `x_train.txt` or `x_test.txt` contain the raw variable datasets
 - `y_train.txt` or `y_test.txt` contain the activity performed from which the variables were measured
 - `subject_train.txt` or `subject_test.txt` contain the ID of the volunteer performing the test
 These files were read using the function `fread()` from the data.table package, since the files have fixed width columns.
 
 Additionally, the following files were parsed:
-- `activity_labels.txt` contains the activity activity
+- `activity_labels.txt` contains the activity labels
 - `features.txt` contains the name of the measurements in `x_train.txt`
 
 For the `features.txt` file, as required by the assignment, only those variables that included "mean" or "std" were selected.
