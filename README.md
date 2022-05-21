@@ -24,7 +24,7 @@ The columns corresponding to the filtered features from the `features.txt` file 
 ## Tidying data set, grouping and summarizing
 The `data_set` was processed into a tidy data format using `gather()` from the tidyr library, creating a column "measurement" which specifies the feature in the "value" column. This tidy data set is grouped by "subject", "activity" and "measurement" using `group_by()`. Finally, the grouped data set is summarized using `summrize()`, in order to calculate the "avg" column which contains the `mean()` for each measurement taken from a particular subject and activity.
 
-## Source:
+## Source
 
 Jorge L. Reyes-Ortiz(1,2), Davide Anguita(1), Alessandro Ghio(1), Luca Oneto(1) and Xavier Parra(2)
 1 - Smartlab - Non-Linear Complex Systems Laboratory
